@@ -10,7 +10,7 @@ interface ModalProps {
     onSubmit?: () => void;
     title?: string;
     body?: React.ReactElement;
-    footer?: boolean;
+    footer?: React.ReactElement;
     actionLabel: string;
     disabled?: boolean;
 }
@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({
             return;
         }
 
-        onClose();
+        onClose && onClose();
     }, [disabled, onClose]);
 
     const handleSubmit = useCallback(() => {
@@ -38,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({
             return;
         }
 
-        onSubmit();
+        onSubmit && onSubmit();
     }, [disabled, onSubmit]);
 
     if (!isOpen) {
