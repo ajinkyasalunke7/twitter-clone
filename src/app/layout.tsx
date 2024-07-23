@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
 import FollowBar from "@/components/layout/FollowBar";
-import Modal from "@/components/Modal";
+import LoginModal from "@/components/modals/LoginModal";
+import RegisterModal from "@/components/modals/RegisterModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 {/* <Modal title="What to do next>?" actionLabel="Submit" isOpen /> */}
+                <LoginModal />
+                <RegisterModal />
                 <div className="h-screen bg-black">
                     <div className="container h-full mx-auto xl:px-30 max-w-7xl">
-                        <div className="grid grid-cols-4 h-full">
+                        <div className="grid grid-cols-4 ml-[-30px] md:ml-[0px] h-full">
                             <Sidebar />
                             <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
                                 {children}

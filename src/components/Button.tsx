@@ -10,6 +10,7 @@ interface ButtonProps {
     onClick?: () => void;
     disabled?: boolean;
     outline?: boolean;
+    className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick,
     disabled,
     outline,
+    className,
 }) => {
     return (
         <button
@@ -33,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
                 ${large ? "py-3" : "py-2"} 
                 ${outline ? "bg-transparent" : ""} 
                 ${outline ? "border-white" : ""} 
-                ${outline ? "text-white" : ""}`}
+                ${outline ? "text-white" : ""} ${className}`}
             onClick={onClick}
             disabled={disabled}
         >
