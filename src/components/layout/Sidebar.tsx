@@ -9,8 +9,7 @@ import { signOut } from "next-auth/react";
 
 function Sidebar() {
     const { data: currentUser } = useCurrentUser();
-    console.log("CLient", currentUser);
-    console.log("Current user: " + JSON.stringify(currentUser));
+
     const items = [
         {
             label: "Home",

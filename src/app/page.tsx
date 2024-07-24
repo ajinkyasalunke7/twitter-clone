@@ -11,6 +11,7 @@ export default function Home() {
     return (
         <>
             <Header showBackArrow={false} label="Home" />
+            <p className={`text-white`}>{JSON.stringify(session)}</p>
         </>
     );
 }

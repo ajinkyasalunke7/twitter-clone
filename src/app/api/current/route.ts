@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
-        console.log("/current route");
+        console.log("/current route", req);
         const { currentUser } = await serverAuth(req);
         console.log("currentUser", currentUser);
         return NextResponse.json(

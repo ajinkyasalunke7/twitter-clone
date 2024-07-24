@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import { NextApiRequest } from "next";
 
 const serverAuth = async (req: NextApiRequest) => {
-    console.log("server Auth");
+    console.log("server Auth", req);
     const session = await getSession({ req });
     if (!session) {
         throw new Error("No session found");
