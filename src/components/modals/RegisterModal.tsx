@@ -22,24 +22,30 @@ const RegisterModal = () => {
     const onSubmit = useCallback(async () => {
         try {
             setIsLoading(true);
-            const data = await axios.post(`/api/register`, {
+
+            if (!email || !password || !username || !name) {
+                toast.error("All fields are required.");
+                return;
+            }
+
+            const response = await axios.post(`/api/register`, {
                 email,
                 password,
                 name,
                 username: username.toLowerCase(),
             });
-            console.log(data);
-            toast.success("Account created.");
-            signIn("credentials", {
-                email,
-                password,
-            });
-            // toast.success("User logged in.");
 
+            toast.success("Account created successfully.");
+            // signIn("credentials", { email, password });
             registerModel.onClose();
-        } catch (error) {
-            console.log(error);
-            toast.error("Something went wrong.");
+            loginModel.onOpen();
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                const message = error.response.data.message;
+                toast.error(message || "Something went wrong.");
+            } else {
+                toast.error("Something went wrong.");
+            }
         } finally {
             setIsLoading(false);
         }
@@ -52,7 +58,7 @@ const RegisterModal = () => {
     }, [isLoading, registerModel, loginModel]);
 
     const bodyContent = (
-        <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-4">
             <Input
                 placeholder="Name"
                 type="text"
@@ -85,7 +91,7 @@ const RegisterModal = () => {
     );
 
     const footerContent = (
-        <div className="text-neutral-400 text-center mt-4 ">
+        <div className="text-neutral-400 text-center mt-4">
             <p>Already have an account?</p>
             <span
                 className="text-sky-400 cursor-pointer hover:underline"

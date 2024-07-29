@@ -1,3 +1,4 @@
+"use client";
 import { BsBellFill, BsHouseFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import SidebarLogo from "./SidebarLogo";
@@ -9,7 +10,7 @@ import { signOut } from "next-auth/react";
 
 function Sidebar() {
     const { data: currentUser } = useCurrentUser();
-
+    console.log("Client side data:", currentUser);
     const items = [
         {
             label: "Home",
@@ -40,7 +41,7 @@ function Sidebar() {
                             icon={item.icon}
                         />
                     ))}
-                    {currentUser && (
+                    {currentUser?.success === true && (
                         <SidebarItem
                             onClick={() => {
                                 signOut();

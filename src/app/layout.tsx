@@ -7,8 +7,9 @@ import FollowBar from "@/components/layout/FollowBar";
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
 // import { Toaster } from "react-hot-toast";
-import { NextAuthProvider } from "./provider";
+
 import { CustomToast } from "@/components/CustomToast";
+import Providers from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 
 // ("use server");
@@ -27,7 +28,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 {/* <Toaster /> */}
                 <CustomToast />
-                <NextAuthProvider>
+                <Providers>
                     {/* <Modal title="What to do next>?" actionLabel="Submit" isOpen /> */}
                     <LoginModal />
                     <RegisterModal />
@@ -43,7 +44,7 @@ export default function RootLayout({
                             </div>
                         </div>
                     </div>
-                </NextAuthProvider>
+                </Providers>
             </body>
         </html>
     );

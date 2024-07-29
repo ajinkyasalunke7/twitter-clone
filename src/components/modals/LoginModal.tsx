@@ -5,6 +5,8 @@ import useLoginModal from "../../../hooks/useLoginModal";
 import Input from "../Input";
 import Modal from "../Modal";
 import useRegisterModal from "../../../hooks/useRegisterModal";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const LoginModal = () => {
     const loginModel = useLoginModal();
@@ -15,17 +17,19 @@ const LoginModal = () => {
 
     const onSubmit = useCallback(async () => {
         try {
+            setIsLoading(true);
+
+            await signIn("credentials", { email, password });
             setTimeout(() => {
-                setIsLoading(true);
-                alert("Logged In");
-                loginModel.onClose();
-            }, 3000);
+                toast.success("Logged In");
+            }, 1000);
+            loginModel.onClose();
         } catch (error) {
             console.log(error);
         } finally {
             setIsLoading(false);
         }
-    }, [loginModel]);
+    }, [loginModel, email, password]);
 
     const onToggle = useCallback(() => {
         if (isLoading) {

@@ -8,7 +8,53 @@ export async function POST(req: NextRequest) {
         const reqBody = await req.json();
         const { email, username, name, password } = reqBody;
 
-        // Check if a user with the same email already exists
+        if (!email || !password || !username || !name) {
+            return NextResponse.json(
+                new ApiResponse(400, null, "Missing required fields"),
+                { status: 400 }
+            );
+        }
+        // Simple validation checks
+        if (!email || !email.includes("@") || !email.includes(".")) {
+            return NextResponse.json(
+                new ApiResponse(400, null, "Invalid email format"),
+                { status: 400 }
+            );
+        }
+
+        if (!username || username.length < 3 || username.length > 30) {
+            return NextResponse.json(
+                new ApiResponse(
+                    400,
+                    null,
+                    "Username must be between 3 and 30 characters"
+                ),
+                { status: 400 }
+            );
+        }
+
+        if (!name || name.length < 3 || name.length > 50) {
+            return NextResponse.json(
+                new ApiResponse(
+                    400,
+                    null,
+                    "Name must be between 3 and 50 characters"
+                ),
+                { status: 400 }
+            );
+        }
+
+        if (!password || password.length < 3) {
+            return NextResponse.json(
+                new ApiResponse(
+                    400,
+                    null,
+                    "Password must be at least 3 characters long"
+                ),
+                { status: 400 }
+            );
+        }
+
         const existingUser = await prisma.user.findUnique({
             where: { email: email },
         });
