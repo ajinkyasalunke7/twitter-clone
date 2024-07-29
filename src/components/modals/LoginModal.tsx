@@ -7,6 +7,7 @@ import Modal from "../Modal";
 import useRegisterModal from "../../../hooks/useRegisterModal";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import Joi from "joi";
 
 const LoginModal = () => {
     const loginModel = useLoginModal();
@@ -15,14 +16,26 @@ const LoginModal = () => {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    const schema = Joi.object({
+        email: Joi.string()
+            .email({ tlds: { allow: false } })
+            .required(),
+        password: Joi.string().min(3).required(),
+    });
+
     const onSubmit = useCallback(async () => {
+        const { error } = schema.validate({ email, password });
+
+        if (error) {
+            toast.error(error.details[0].message);
+            return;
+        }
+
         try {
             setIsLoading(true);
 
             await signIn("credentials", { email, password });
-            setTimeout(() => {
-                toast.success("Logged In");
-            }, 1000);
+
             loginModel.onClose();
         } catch (error) {
             console.log(error);

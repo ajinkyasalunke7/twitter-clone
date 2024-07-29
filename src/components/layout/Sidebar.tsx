@@ -21,11 +21,13 @@ function Sidebar() {
             label: "Notifications",
             href: "/notifications",
             icon: BsBellFill,
+            auth: true,
         },
         {
             label: "Profile",
             href: "/user/123",
             icon: FaUser,
+            auth: true,
         },
     ];
     return (
@@ -39,6 +41,7 @@ function Sidebar() {
                             label={item.label}
                             href={item.href}
                             icon={item.icon}
+                            auth={item.auth}
                         />
                     ))}
                     {currentUser?.success === true && (
